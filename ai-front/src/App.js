@@ -21,6 +21,7 @@ function App() {
 
             await axios.post("http://127.0.0.1:5000/api/ai-response", jsonData, {
                 headers: { "Content-Type": "application/json" },
+                withCredentials: true,
             });
 
             console.log("Data successfully sent to the server!");
@@ -49,6 +50,7 @@ function App() {
         try {
             const response = await axios.post("http://127.0.0.1:5000/api/upload-file", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
+                withCredentials: true,
             });
             setServerResponse(response.data.response || "Файл обработан успешно.");
         } catch (error) {
@@ -60,17 +62,13 @@ function App() {
     return (
         <div className="App">
             <div className="container">
-                <div className="search-bar">
-
-                    <DatasetSelect apiUrl="https://api.example.com/options1" placeholder="Choose dataset"/>
-                    <ModuleSelect apiUrl="https://api.example.com/options2" placeholder="Select  model"/>
-
-                    <input type="file"
-                           accept=".csv"
-                           onChange={handleFileChange}
-                    />
+                <div className="option-bar">
+                    <DatasetSelect apiUrl="https://api.example.com/datasets-options" placeholder="Choose dataset"/>
+                    <ModuleSelect placeholder="Select  model"/>
                 </div>
+
                 <div className="result-box"></div>
+
                 <div className="search-bar">
                     <textarea
                         placeholder="Write your query here..."
@@ -81,7 +79,13 @@ function App() {
                         onKeyDown={handleKeyDown}
                     />
 
-                    <button onClick={handleSendData}>Submit</button>
+                    <div>
+                        <input type="file"
+                               accept=".csv"
+                               onChange={handleFileChange}
+                        />
+                        <button onClick={handleSendData}>Submit</button>
+                    </div>
                 </div>
             </div>
         </div>

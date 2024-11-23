@@ -12,12 +12,9 @@ function ModuleSelect({ placeholder }) {
 
     return (
         <select value={selectedValue} onChange={handleChange}>
-            {/* Placeholder option */}
             <option value="" disabled hidden>
                 {placeholder}
             </option>
-
-            {/* Predefined static options */}
             {modelOptions.map((option, index) => (
                 <option key={index} value={option}>
                     {option}

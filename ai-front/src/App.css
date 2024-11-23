@@ -13,11 +13,69 @@ body {
     background-color: #f9f9f9;
 }
 
-.search-bar {
+.option-bar {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
+}
+
+.option-bar select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    font-size: 16px;
+    color: black;
+}
+
+/**/
+
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative; /* Anchor positioning */
+    border: 1px solid #ccc; /* Add a border around the entire search bar */
+    border-radius: 5px; /* Rounded corners for the entire bar */
+    overflow: hidden; /* Ensure elements don’t spill out of the border */
+    background-color: white; /* Match the background with the input and button */
+}
+
+.search-bar textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    resize: none;
+    overflow: auto;
+    line-height: 1.5;
+    min-height: 30px;
+    max-height: 200px;
+    box-sizing: border-box;
+    width: -webkit-fill-available;
+}
+
+textarea:focus {
+    outline: none; /* Remove focus outline for cleaner look */
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    border: none; /* Remove individual borders */
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    height: 100%; /* Match the button's height to the input's height */
+    white-space: nowrap; /* Prevent text wrap inside the button */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.search-bar button:hover {
+    background-color: #555; /* Slightly lighter color on hover */
 }
 
 .search-bar input[type="text"]{
@@ -28,31 +86,6 @@ body {
     font-size: 16px;
 }
 
-.auto-growing-textarea {
-    padding: 10px;
-    width: 50vh;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    line-height: 1.5;
-    resize: none;
-    overflow: auto;
-    min-height: 20px;
-    max-height: 300px;
-}
-
-textarea:focus {
-    outline: none;
-}
-
-.search-bar select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200px;
-    font-size: 16px;
-    color: black;
-}
 
 .search-bar button {
     padding: 10px 15px;
@@ -68,7 +101,7 @@ textarea:focus {
     background-color: #555555FF;
 }
 
-.result-box {
+.search-result-box {
     width: 100%;
     height: 400px;
     background-color: #d3d3d3;
