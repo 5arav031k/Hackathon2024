@@ -8,8 +8,8 @@ CORS(app)
 UPLOAD_FOLDER = './uploads'
 makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@app.route('/receive-data', methods=['POST'])
-def receive_data():
+@app.route('/api/receive-queri', methods=['POST'])
+def receive_queri():
     try:
         data = request.json
         print("Get data:", data)
@@ -20,7 +20,8 @@ def receive_data():
         print("Error with data:", str(e))
         return jsonify({"error": str(e)}), 500
 
-@app.route('/upload-file', methods=['POST'])
+
+@app.route('/api/upload-file', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return jsonify({"error": "File not found in request"}), 400
