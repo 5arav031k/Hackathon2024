@@ -12,7 +12,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/', methods=['POST'])
 def upload_page():
     if 'dataset' not in request.files:
         return 'No file part'
