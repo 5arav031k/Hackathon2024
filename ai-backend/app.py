@@ -8,8 +8,8 @@ CORS(app)
 UPLOAD_FOLDER = './uploads'
 makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@app.route('/api/receive-queri', methods=['POST'])
-def receive_queri():
+@app.route('/api/receive-query', methods=['POST'])
+def receive_query():
     try:
         data = request.json
         print("Get data:", data)
