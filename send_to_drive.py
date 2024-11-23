@@ -1,48 +1,50 @@
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 import os
+import json
 
+#TODO: remake cvs to json
 
 def upload():
     gauth = GoogleAuth()
 
-    # Спробуємо завантажити збережені токени
-    gauth.LoadCredentialsFile("credentials.json")
+    try:
+        with open("client-data/client_secrets.json", "r") as file:
+            data = json.load(file)
+        if 'web' not in data or 'client_id' not in data['web']:
+            raise ValueError("File client_secrets.json has the wrong format.")
+    except FileNotFoundError:
+        print("File client_secrets.json not found!")
+        return
+    except ValueError as e:
+        print(f"Error: {e}")
+        return
 
-    # Якщо токени не знайдені або вони не валідні, запускаємо процес авторизації
-    if not gauth.credentials:
-        gauth.LocalWebserverAuth()  # Цей крок відкриває браузер для авторизації
-    elif gauth.access_token_expired:
-        gauth.Refresh()  # Оновлюємо токен, якщо він застарів
+    if os.path.exists("client-data/credentials.json"):
+        gauth.LoadCredentialsFile("credentials.json")
+        if gauth.access_token_expired:
+            gauth.Refresh()
+        else:
+            gauth.Authorize()
     else:
-        gauth.Authorize()
+        gauth.LocalWebserverAuth()
+        gauth.SaveCredentialsFile("credentials.json")
 
-    # Зберігаємо токени для подальших сесій
-    gauth.SaveCredentialsFile("credentials.json")
-
-    # Після авторизації ініціалізуємо PyDrive
     drive = GoogleDrive(gauth)
 
     folder_path = 'datasets'
+    if not os.path.exists(folder_path):
+        print(f"Folder {folder_path} was not found.")
+        return
 
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
-
-        # Перевіряємо, чи це файл (а не папка)
         if os.path.isfile(file_path):
-            print(f"Завантаження файлу: {filename}")
-
-            # Створення файлу на Google Диску з ім'ям 'filename'
+            print(f"Uploading a file: {filename}")
             file_drive = drive.CreateFile({'title': filename})
-
-            # Завантажуємо вміст локального файлу на Google Диск
             file_drive.SetContentFile(file_path)
-
-            # Завантажуємо файл на Google Диск
             file_drive.Upload()
-
-            print(f"Файл {filename} успішно завантажено на Google Диск!")
-
+            print(f"File {filename} was successfully uploaded to Google Drive!")
 
 if __name__ == '__main__':
     upload()
