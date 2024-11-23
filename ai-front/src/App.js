@@ -2,10 +2,9 @@ import './App.css';
 
 function App() {
   return (
-      <div className="App">
-          <p>hellow worldpiufdiabfdbfbj</p>
-          <p>hellow worldpiufdiabfdbfbj</p>
-      </div>
+    <div className="App">
+      <p>hellow worldpiufdiabfdbfbj</p>
+    </div>
   );
 }
 
