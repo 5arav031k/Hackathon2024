@@ -5,11 +5,14 @@ import json
 
 #TODO: remake cvs to json
 
+CLIENT_SECRETS_PATH = "client-data/client_secrets.json"
+CRED_PATH = "client-data/credentials.json"
+
 def upload():
     gauth = GoogleAuth()
 
     try:
-        with open("client-data/client_secrets.json", "r") as file:
+        with open(CLIENT_SECRETS_PATH, "r") as file:
             data = json.load(file)
         if 'web' not in data or 'client_id' not in data['web']:
             raise ValueError("File client_secrets.json has the wrong format.")
@@ -20,15 +23,15 @@ def upload():
         print(f"Error: {e}")
         return
 
-    if os.path.exists("client-data/credentials.json"):
-        gauth.LoadCredentialsFile("credentials.json")
+    if os.path.exists(CRED_PATH):
+        gauth.LoadCredentialsFile(CRED_PATH)
         if gauth.access_token_expired:
             gauth.Refresh()
         else:
             gauth.Authorize()
     else:
         gauth.LocalWebserverAuth()
-        gauth.SaveCredentialsFile("credentials.json")
+        gauth.SaveCredentialsFile(CRED_PATH)
 
     drive = GoogleDrive(gauth)
 
