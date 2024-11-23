@@ -47,7 +47,6 @@ function App() {
         formData.append("file", selectedFile);
 
         try {
-            // Автоматическая отправка файла на сервер
             const response = await axios.post("http://127.0.0.1:5000/api/upload-file", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
@@ -62,16 +61,6 @@ function App() {
         <div className="App">
             <div className="container">
                 <div className="search-bar">
-                    <textarea
-                        placeholder="Write your query here..."
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        onInput={handleInputBarSize}
-                        className="auto-growing-textarea"
-                        onKeyDown={handleKeyDown}
-                    />
-
-                    <button onClick={handleSendData}>Submit</button>
 
                     <DatasetSelect apiUrl="https://api.example.com/options1" placeholder="Choose dataset"/>
                     <ModuleSelect apiUrl="https://api.example.com/options2" placeholder="Select  model"/>
@@ -82,6 +71,18 @@ function App() {
                     />
                 </div>
                 <div className="result-box"></div>
+                <div className="search-bar">
+                    <textarea
+                        placeholder="Write your query here..."
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onInput={handleInputBarSize}
+                        className="auto-growing-textarea"
+                        onKeyDown={handleKeyDown}
+                    />
+
+                    <button onClick={handleSendData}>Submit</button>
+                </div>
             </div>
         </div>
     );
