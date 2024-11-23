@@ -28,15 +28,17 @@ body {
     font-size: 16px;
 }
 
-textarea {
+.auto-growing-textarea {
     padding: 10px;
+    width: 50vh;
+    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 50vw; /* Adjust the width as needed */
-    font-size: 16px;
-    resize: none; /* Disable manual resizing */
-    overflow: hidden; /* Prevent horizontal overflow */
     line-height: 1.5;
+    resize: none;
+    overflow: auto;
+    min-height: 20px;
+    max-height: 300px;
 }
 
 textarea:focus {

@@ -8,13 +8,12 @@ CORS(app)
 UPLOAD_FOLDER = './uploads'
 makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-@app.route('/api/receive-query', methods=['POST'])
-def receive_query():
+@app.route('api/ai-response', methods=['POST'])
+def ai_response():
     try:
         data = request.json
         print("Get data:", data)
 
-        # Возвращаем подтверждение клиенту
         return jsonify({"message": "The data was received"}), 200
     except Exception as e:
         print("Error with data:", str(e))
@@ -31,7 +30,6 @@ def upload_file():
     if file.filename == '':
         return jsonify({"error": "File not selected"}), 400
 
-    # Сохраняем файл
     file.save(path.join(UPLOAD_FOLDER, file.filename))
     print(f"File uploaded successfully: {file.filename}")
     return jsonify({"message": f"File {file.filename} successfully uploaded!"}), 200
